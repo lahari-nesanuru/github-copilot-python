@@ -1,22 +1,83 @@
+:root {
+    --bg-color: #f4f4f4;
+    --panel-color: #ffffff;
+    --panel-border: #d9d9d9;
+    --board-border: #333333;
+    --text-color: #1f1f1f;
+    --muted-text: #555555;
+    --button-bg: #1976d2;
+    --button-hover: #1565c0;
+    --button-text: #ffffff;
+    --cell-bg: #fafafa;
+    --cell-border: #bbbbbb;
+    --cell-focus: #e0f7fa;
+    --prefilled-bg: #e0e0e0;
+    --prefilled-text: #1f1f1f;
+    --incorrect-bg: #ffcdd2;
+    --incorrect-text: #b71c1c;
+    --conflict-bg: #ffe082;
+    --conflict-text: #7f6000;
+    --hint-bg: #dff7e8;
+    --hint-text: #0b5e2a;
+    --input-text: #111111;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --cell-size: clamp(24px, 7vw, 40px);
+    --box-a-bg: rgba(255, 255, 255, 0.85);
+    --box-b-bg: rgba(232, 240, 255, 0.9);
+    --box-a-dark: rgba(23, 33, 50, 0.9);
+    --box-b-dark: rgba(34, 61, 93, 0.8);
+}
+
 body {
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    background: var(--bg-color);
+    color: var(--text-color);
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 16px 12px 32px;
+    min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.dark-mode {
+    --bg-color: #121826;
+    --panel-color: #1b2433;
+    --panel-border: #33415c;
+    --board-border: #dfe7f5;
+    --text-color: #edf3ff;
+    --muted-text: #d3dcf2;
+    --button-bg: #4e8cff;
+    --button-hover: #75a8ff;
+    --button-text: #08111d;
+    --cell-bg: #172132;
+    --cell-border: #52607a;
+    --cell-focus: #223d5d;
+    --prefilled-bg: #2d3a52;
+    --prefilled-text: #edf3ff;
+    --incorrect-bg: #6f1d2e;
+    --incorrect-text: #ffd1d8;
+    --conflict-bg: #7a5a13;
+    --conflict-text: #fff3c4;
+    --hint-bg: #1e4d3e;
+    --hint-text: #d7f9e8;
+    --input-text: #edf3ff;
+    --shadow: rgba(0, 0, 0, 0.35);
+    --box-a-bg: rgba(23, 33, 50, 0.9);
+    --box-b-bg: rgba(34, 61, 93, 0.75);
 }
 
 h1 {
     margin-top: 30px;
-    color: #333;
+    color: var(--text-color);
 }
 
 #sudoku-board {
     display: inline-block;
     margin: 30px auto;
-    border: 4px solid #333;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 4px solid var(--board-border);
+    background: var(--panel-color);
+    box-shadow: 0 2px 8px var(--shadow);
+    max-width: min(92vw, 420px);
 }
 
 .sudoku-row {
@@ -24,62 +85,319 @@ h1 {
 }
 
 .sudoku-cell {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #bbb;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid var(--cell-border);
     text-align: center;
-    font-size: 20px;
+    font-size: clamp(14px, 2.2vw, 20px);
     outline: none;
-    background: #fafafa;
-    transition: background 0.2s;
+    background: var(--cell-bg);
+    color: var(--input-text);
+    padding: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .sudoku-cell:focus {
-    background: #e0f7fa;
+    background: var(--cell-focus);
 }
 
 .sudoku-cell.prefilled {
-    background: #e0e0e0;
+    background: var(--prefilled-bg);
     font-weight: bold;
-    color: #333;
+    color: var(--prefilled-text);
+}
+
+.sudoku-cell.hinted {
+    background: var(--hint-bg);
+    color: var(--hint-text);
+    font-weight: bold;
+    box-shadow: inset 0 0 0 1px rgba(11, 94, 42, 0.35);
 }
 
 .sudoku-cell.incorrect {
-    background: #ffcdd2;
+    background: var(--incorrect-bg);
+    color: var(--incorrect-text);
+}
+
+.sudoku-cell.conflict {
+    background: var(--conflict-bg);
+    color: var(--conflict-text);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 
 .sudoku-cell:nth-child(3),
 .sudoku-cell:nth-child(6) {
-    border-right: 3px solid #333;
+    border-right: 3px solid var(--board-border);
 }
 
 .sudoku-row:nth-child(3) .sudoku-cell,
 .sudoku-row:nth-child(6) .sudoku-cell {
-    border-bottom: 3px solid #333;
+    border-bottom: 3px solid var(--board-border);
+}
+
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(9) {
+    background-color: inherit;
+}
+
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(9),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(7),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(8),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(9) {
+    background-color: var(--box-a-bg);
+}
+
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(3),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(1),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(2),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(3) {
+    background-color: var(--box-b-bg);
 }
 
 .controls {
     margin: 20px auto;
+    color: var(--text-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 12px;
+    max-width: 760px;
+    padding: 0 8px;
+}
+
+label,
+select,
+input,
+span {
+    color: var(--text-color);
 }
 
 button {
     padding: 8px 18px;
-    margin: 0 8px;
+    margin: 0;
     font-size: 16px;
     border: none;
-    background: #1976d2;
-    color: #fff;
+    background: var(--button-bg);
+    color: var(--button-text);
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 button:hover {
-    background: #1565c0;
+    background: var(--button-hover);
+}
+
+#difficulty,
+#player-name {
+    background: var(--panel-color);
+    border: 1px solid var(--panel-border);
+    color: var(--text-color);
+    border-radius: 4px;
 }
 
 #message {
-    margin-left: 20px;
+    margin-left: 0;
     font-size: 16px;
     color: #d32f2f;
+    display: inline-block;
+    min-height: 1.5em;
+}
+
+.leaderboard-card {
+    width: min(420px, calc(100% - 20px));
+    margin: 24px auto 40px;
+    padding: 16px 20px;
+    background: var(--panel-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+    color: var(--text-color);
+}
+
+.leaderboard-card h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: var(--text-color);
+}
+
+#player-name {
+    margin-left: 8px;
+    padding: 6px 8px;
+    font-size: 14px;
+    min-width: 150px;
+    max-width: 100%;
+}
+
+.leaderboard-list {
+    margin: 14px 0 0;
+    padding-left: 24px;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.leaderboard-list li {
+    padding: 6px 0;
+    color: var(--text-color);
+}
+
+.leaderboard-list .empty {
+    list-style: none;
+    padding-left: 0;
+    color: var(--muted-text);
+}
+
+@media (max-width: 560px) {
+    h1 {
+        margin-top: 20px;
+        font-size: 1.8rem;
+    }
+
+    .controls {
+        gap: 8px;
+    }
+
+    button {
+        flex: 1 1 140px;
+    }
+
+    #timer,
+    #hints-used,
+    #message {
+        width: 100%;
+    }
+
+    .leaderboard-card {
+        padding: 14px 12px;
+    }
+
+    .leaderboard-list {
+        padding-left: 18px;
+    }
 }

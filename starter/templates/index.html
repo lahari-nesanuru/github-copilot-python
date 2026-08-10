@@ -9,10 +9,27 @@
   <h1>Sudoku Game</h1>
   <div id="sudoku-board"></div>
   <div class="controls">
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
     <button id="new-game">New Game</button>
     <button id="check-solution">Check Solution</button>
+    <button id="hint">Hint</button>
+    <button id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark Mode</button>
+    <span id="timer">Time: 00:00</span>
+    <span id="hints-used">Hints: 0</span>
     <span id="message"></span>
   </div>
+  <div class="leaderboard-card">
+    <h2>Top 10 Leaderboard</h2>
+    <label for="player-name">Player:</label>
+    <input id="player-name" type="text" maxlength="20" value="Anonymous" placeholder="Anonymous" aria-label="Player name">
+    <ol id="leaderboard-list" class="leaderboard-list"></ol>
+  </div>
+  <script src="/static/validation.js"></script>
   <script src="/static/main.js"></script>
 </body>
 </html>
