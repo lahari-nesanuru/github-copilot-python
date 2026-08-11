@@ -13,20 +13,19 @@
     --cell-focus: #e0f7fa;
     --prefilled-bg: #e0e0e0;
     --prefilled-text: #1f1f1f;
-    --incorrect-bg: #ffcdd2;
-    --incorrect-text: #b71c1c;
-    --conflict-bg: #ffe082;
-    --conflict-text: #7f6000;
-    --hint-bg: #dff7e8;
-    --hint-text: #0b5e2a;
+    --validation-error-bg: #d32f2f;
+    --validation-error-text: #ffffff;
+    --validation-hint-bg: #2e7d32;
+    --validation-hint-text: #ffffff;
     --input-text: #111111;
     --shadow: rgba(0, 0, 0, 0.08);
     --cell-size: clamp(24px, 7vw, 40px);
-    --box-a-bg: rgba(255, 255, 255, 0.85);
-    --box-b-bg: rgba(232, 240, 255, 0.9);
+    --box-a-bg: #e6e6e6;
+    --box-b-bg: #ffffff;
     --box-a-dark: rgba(23, 33, 50, 0.9);
     --box-b-dark: rgba(34, 61, 93, 0.8);
 }
+
 
 body {
     font-family: Arial, sans-serif;
@@ -54,17 +53,16 @@ body.dark-mode {
     --cell-focus: #223d5d;
     --prefilled-bg: #2d3a52;
     --prefilled-text: #edf3ff;
-    --incorrect-bg: #6f1d2e;
-    --incorrect-text: #ffd1d8;
-    --conflict-bg: #7a5a13;
-    --conflict-text: #fff3c4;
-    --hint-bg: #1e4d3e;
-    --hint-text: #d7f9e8;
+    --validation-error-bg: #b71c1c;
+    --validation-error-text: #ffffff;
+    --validation-hint-bg: #1e4d4f;
+    --validation-hint-text: #daf8e3;
     --input-text: #edf3ff;
     --shadow: rgba(0, 0, 0, 0.35);
     --box-a-bg: rgba(23, 33, 50, 0.9);
     --box-b-bg: rgba(34, 61, 93, 0.75);
 }
+
 
 h1 {
     margin-top: 30px;
@@ -102,27 +100,26 @@ h1 {
 }
 
 .sudoku-cell.prefilled {
-    background: var(--prefilled-bg);
+
     font-weight: bold;
     color: var(--prefilled-text);
 }
 
 .sudoku-cell.hinted {
-    background: var(--hint-bg);
-    color: var(--hint-text);
+    background: var(--validation-hint-bg) !important;
+    color: var(--validation-hint-text);
     font-weight: bold;
     box-shadow: inset 0 0 0 1px rgba(11, 94, 42, 0.35);
 }
 
 .sudoku-cell.incorrect {
-    background: var(--incorrect-bg);
-    color: var(--incorrect-text);
+    background: var(--validation-error-bg) !important;
+    color: var(--validation-error-text);
 }
 
 .sudoku-cell.conflict {
-    background: var(--conflict-bg);
-    color: var(--conflict-text);
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+    outline: 2px solid #d32f2f;
+    outline-offset: -1px;
 }
 
 .sudoku-cell:nth-child(3),
@@ -135,99 +132,13 @@ h1 {
     border-bottom: 3px solid var(--board-border);
 }
 
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(4),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(5),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(9) {
-    background-color: inherit;
-}
-
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(1) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(2) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(3) .sudoku-cell:nth-child(3),
+/* 3×3 subgrid background pattern */
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(1) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(2) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(3) .sudoku-cell:nth-child(n+7),
 .sudoku-row:nth-child(4) .sudoku-cell:nth-child(4),
 .sudoku-row:nth-child(4) .sudoku-cell:nth-child(5),
 .sudoku-row:nth-child(4) .sudoku-cell:nth-child(6),
@@ -237,15 +148,12 @@ h1 {
 .sudoku-row:nth-child(6) .sudoku-cell:nth-child(4),
 .sudoku-row:nth-child(6) .sudoku-cell:nth-child(5),
 .sudoku-row:nth-child(6) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(9),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(7),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(8),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(9) {
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(n+7) {
     background-color: var(--box-a-bg);
 }
 
@@ -258,26 +166,24 @@ h1 {
 .sudoku-row:nth-child(3) .sudoku-cell:nth-child(4),
 .sudoku-row:nth-child(3) .sudoku-cell:nth-child(5),
 .sudoku-row:nth-child(3) .sudoku-cell:nth-child(6),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(4) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(5) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(6) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(7) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(8) .sudoku-cell:nth-child(3),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(1),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(2),
-.sudoku-row:nth-child(9) .sudoku-cell:nth-child(3) {
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(4) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(5) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(-n+3),
+.sudoku-row:nth-child(6) .sudoku-cell:nth-child(n+7),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(7) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(8) .sudoku-cell:nth-child(6),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(4),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(5),
+.sudoku-row:nth-child(9) .sudoku-cell:nth-child(6) {
     background-color: var(--box-b-bg);
 }
+
 
 .controls {
     margin: 20px auto;
